@@ -1,0 +1,7 @@
+# Redirects for moved assets
+/intro-bg.jpg  /img/intro-bg.jpg  301
+/overlay-bg.jpg  /img/overlay-bg.jpg  301
+/testimonial-2.jpg  /img/testimonial-2.jpg  301
+
+# SPA fallback (if needed in future)
+# /*  /index.html  200
