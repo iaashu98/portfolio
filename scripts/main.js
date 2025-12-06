@@ -5,7 +5,7 @@ const projects = [
     {
         title: 'Art Gallery Database Management',
         description: 'A comprehensive database management system for art galleries with CRUD operations, search functionality, and stored procedures.',
-        image: '/img/work1.png',
+        image: 'img/work1.png',
         tags: ['PHP', 'MySQL', 'HTML/CSS', 'JavaScript'],
         github: 'https://github.com/i-ashu/art-gallery-database-management',
         demo: null
@@ -13,7 +13,7 @@ const projects = [
     {
         title: 'Flask Personal Blog',
         description: 'A full-featured blogging platform built with Flask, featuring user authentication, post management, and MySQL database integration.',
-        image: '/img/blog.png',
+        image: 'img/blog.png',
         tags: ['Flask', 'Python', 'MySQL', 'jQuery', 'Bootstrap'],
         github: 'https://github.com/i-ashu/flask-personal-blog',
         demo: null
@@ -21,7 +21,7 @@ const projects = [
     {
         title: 'QR Code Scanner',
         description: 'A web-based QR code scanner application using HTML5 camera API for real-time QR code detection and decoding.',
-        image: '/img/work2.png',
+        image: 'img/work2.png',
         tags: ['HTML5', 'CSS3', 'JavaScript', 'WebRTC'],
         github: 'https://github.com/i-ashu/QRScanner',
         demo: null
@@ -29,7 +29,7 @@ const projects = [
     {
         title: 'Ferris Wheel Animation',
         description: 'An interactive 3D Ferris wheel animation created using OpenGL and C++, demonstrating computer graphics concepts.',
-        image: '/img/work3.png',
+        image: 'img/work3.png',
         tags: ['OpenGL', 'C++', 'Computer Graphics'],
         github: 'https://github.com/i-ashu/ferris-wheel-cg-project',
         demo: null
@@ -37,7 +37,7 @@ const projects = [
     {
         title: 'Password Generator & Keeper',
         description: 'A secure password generator and management tool built with Python, featuring encryption and password strength analysis.',
-        image: '/img/work1.png', // Using work1 as placeholder content since work5.jpg is missing
+        image: 'img/work1.png', // Using work1 as placeholder content since work5.jpg is missing
         tags: ['Python3', 'Cryptography', 'Security'],
         github: 'https://github.com/i-ashu/password-generator-and-keeper',
         demo: null
@@ -45,7 +45,7 @@ const projects = [
     {
         title: 'Crypto Connect',
         description: 'A modern cryptocurrency tracking application with real-time price updates, portfolio management, and market analytics.',
-        image: '/img/work4.png',
+        image: 'img/work4.png',
         tags: ['React', 'GraphQL', 'TypeScript', 'TailwindCSS'],
         github: 'https://github.com/iaashu98/crypto-connect',
         demo: 'http://localhost:5173'
