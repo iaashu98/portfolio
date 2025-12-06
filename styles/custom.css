@@ -283,6 +283,10 @@
         gap: var(--space-8);
     }
 
+    #contact {
+        background-attachment: scroll;
+    }
+
     .about-image {
         text-align: center;
     }
@@ -317,7 +321,7 @@
     }
 
     .section {
-        padding: var(--space-12) 0;
+        padding: var(--space-8) 0;
     }
 }
 
@@ -338,5 +342,9 @@
     .grid-3,
     .grid-4 {
         grid-template-columns: 1fr;
+    }
+
+    .timeline {
+        padding-left: var(--space-4);
     }
 }
