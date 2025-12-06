@@ -1,4 +1,3 @@
-```javascript
 // Main JavaScript for portfolio functionality
 
 // Projects data
@@ -114,7 +113,7 @@ function updateActiveNavLink() {
 
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href') === `#${ current } `) {
+        if (link.getAttribute('href') === `#${current} `) {
             link.classList.add('active');
         }
     });
@@ -167,7 +166,8 @@ function setupContactForm() {
             e.preventDefault();
 
             const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
+            // Add Netlify specific form-name
+            formData.append('form-name', 'contact');
 
             // Show loading state
             const submitBtn = form.querySelector('button[type="submit"]');
@@ -175,13 +175,23 @@ function setupContactForm() {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
 
-            // Simulate form submission (replace with actual API call)
-            setTimeout(() => {
+            try {
+                await fetch('/', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams(formData).toString()
+                });
+
+                // Success message
                 alert('Thank you for your message! I will get back to you soon.');
                 form.reset();
+            } catch (error) {
+                console.error('Form submission error:', error);
+                alert('Sorry, something went wrong. Please try again later.');
+            } finally {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
-            }, 1500);
+            }
         });
     }
 }

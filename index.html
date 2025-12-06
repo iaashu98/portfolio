@@ -19,14 +19,14 @@
         content="Portfolio showcasing innovative web development projects and technical expertise">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://iaashu98.github.io/portfolio">
-    <meta property="og:image" content="/testimonial-2.jpg">
+    <meta property="og:image" content="/img/testimonial-2.jpg">
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Ashutosh Ranjan - Full Stack Developer">
     <meta name="twitter:description"
         content="Portfolio showcasing innovative web development projects and technical expertise">
-    <meta name="twitter:image" content="/testimonial-2.jpg">
+    <meta name="twitter:image" content="/img/testimonial-2.jpg">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -138,7 +138,7 @@
 
                 <div class="about-content">
                     <div class="about-image reveal">
-                        <img src="/testimonial-2.jpg" alt="Ashutosh Ranjan" class="profile-image">
+                        <img src="/img/testimonial-2.jpg" alt="Ashutosh Ranjan" class="profile-image">
                     </div>
 
                     <div class="about-text reveal">
@@ -366,7 +366,13 @@
                         </div>
                     </div>
 
-                    <form class="contact-form reveal" id="contact-form">
+                    <form class="contact-form reveal" id="contact-form" name="contact" method="POST" data-netlify="true"
+                        netlify-honeypot="bot-field">
+                        <input type="hidden" name="form-name" value="contact" />
+                        <p class="hidden" style="display: none;">
+                            <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+                        </p>
+
                         <div class="form-group">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" id="name" name="name" class="form-input" required>
