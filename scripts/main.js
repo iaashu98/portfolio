@@ -58,7 +58,7 @@ function renderProjects() {
     if (!projectsGrid) return;
 
     projectsGrid.innerHTML = projects.map(project => `
-    < div class="project-card reveal" >
+    <div class="project-card reveal">
         <img src="${project.image}" alt="${project.title}" class="project-image" loading="lazy">
             <div class="project-content">
                 <h3 class="card-title">${project.title}</h3>
