@@ -251,6 +251,23 @@
 .card-description {
     color: var(--color-text-secondary);
     font-size: var(--text-sm);
+    max-height: 6rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    padding-right: var(--space-2);
+}
+
+.card-description::-webkit-scrollbar {
+    width: 4px;
+}
+
+.card-description::-webkit-scrollbar-thumb {
+    background-color: var(--color-bg-tertiary);
+    border-radius: var(--radius-full);
+}
+
+.card-description::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-primary-light);
 }
 
 /* Project Cards */
@@ -261,6 +278,10 @@
     background: var(--color-surface);
     box-shadow: var(--shadow-md);
     transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Ensure uniform height in grid */
 }
 
 .project-card:hover {
@@ -281,13 +302,23 @@
 
 .project-content {
     padding: var(--space-6);
+    flex-grow: 1;
+    /* Allow content to push actions down */
+    display: flex;
+    flex-direction: column;
 }
 
 .project-tags {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
-    margin-top: var(--space-4);
+    margin-top: auto;
+    /* Push to bottom of content area if description is short */
+    margin-bottom: var(--space-4);
+    max-height: 4.5rem;
+    /* Limit to approx 2 rows */
+    overflow: hidden;
+    align-content: flex-start;
 }
 
 .tag {

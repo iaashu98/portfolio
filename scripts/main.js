@@ -1,86 +1,110 @@
 // Main JavaScript for portfolio functionality
+import { setupRevealAnimations } from './animations.js';
 
 // Projects data
-const projects = [
-    {
-        title: 'Art Gallery Database Management',
-        description: 'A comprehensive database management system for art galleries with CRUD operations, search functionality, and stored procedures.',
-        image: 'img/work1.png',
-        tags: ['PHP', 'MySQL', 'HTML/CSS', 'JavaScript'],
-        github: 'https://github.com/i-ashu/art-gallery-database-management',
-        demo: null
-    },
-    {
-        title: 'Flask Personal Blog',
-        description: 'A full-featured blogging platform built with Flask, featuring user authentication, post management, and MySQL database integration.',
-        image: 'img/blog.png',
-        tags: ['Flask', 'Python', 'MySQL', 'jQuery', 'Bootstrap'],
-        github: 'https://github.com/i-ashu/flask-personal-blog',
-        demo: null
-    },
-    {
-        title: 'QR Code Scanner',
-        description: 'A web-based QR code scanner application using HTML5 camera API for real-time QR code detection and decoding.',
-        image: 'img/work2.png',
-        tags: ['HTML5', 'CSS3', 'JavaScript', 'WebRTC'],
-        github: 'https://github.com/i-ashu/QRScanner',
-        demo: null
-    },
-    {
-        title: 'Ferris Wheel Animation',
-        description: 'An interactive 3D Ferris wheel animation created using OpenGL and C++, demonstrating computer graphics concepts.',
-        image: 'img/work3.png',
-        tags: ['OpenGL', 'C++', 'Computer Graphics'],
-        github: 'https://github.com/i-ashu/ferris-wheel-cg-project',
-        demo: null
-    },
-    {
-        title: 'Password Generator & Keeper',
-        description: 'A secure password generator and management tool built with Python, featuring encryption and password strength analysis.',
-        image: 'img/work1.png', // Using work1 as placeholder content since work5.jpg is missing
-        tags: ['Python3', 'Cryptography', 'Security'],
-        github: 'https://github.com/i-ashu/password-generator-and-keeper',
-        demo: null
-    },
-    {
-        title: 'Crypto Connect',
-        description: 'A modern cryptocurrency tracking application with real-time price updates, portfolio management, and market analytics.',
-        image: 'img/work4.png',
-        tags: ['React', 'GraphQL', 'TypeScript', 'TailwindCSS'],
-        github: 'https://github.com/iaashu98/crypto-connect',
-        demo: 'http://localhost:5173'
+let projects = [];
+
+// Fetch projects from GitHub
+async function fetchGitHubProjects() {
+    const username = 'iaashu98';
+    const projectsGrid = document.getElementById('projects-grid');
+
+    // Show loading state
+    if (projectsGrid) {
+        projectsGrid.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading projects...</div>';
     }
-];
+
+    try {
+        // Fetch more repos to ensure we have enough good candidates after filtering
+        const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=50`);
+        if (!response.ok) throw new Error('Failed to fetch projects');
+
+        const data = await response.json();
+
+        // Filter and sort GitHub data
+        const filteredProjects = data
+            .filter(repo => !repo.fork && repo.description && repo.size > 50) // Non-forks, has description, size > 50kb (filters out empty/tiny repos)
+            .sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.updated_at) - new Date(a.updated_at)) // Sort by stars then recency
+            .slice(0, 7) // Take top 7
+            .map(repo => ({
+                type: 'repo',
+                title: repo.name.replace(/-/g, ' ').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+                description: repo.description,
+                tags: repo.topics && repo.topics.length > 0 ? repo.topics : [repo.language || 'Code'],
+                github: repo.html_url,
+                demo: repo.homepage || null,
+                stars: repo.stargazers_count
+            }));
+
+        projects = filteredProjects;
+
+        // Add "View All" card as the 8th item
+        projects.push({
+            type: 'view-all',
+            url: `https://github.com/${username}?tab=repositories`
+        });
+
+        renderProjects();
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+        projectsGrid.innerHTML = '<p class="error-message">Failed to load projects. Please try again later.</p>';
+        // Fallback removed as requested logic is specific to dynamic data quality
+    }
+}
 
 // Render projects
 function renderProjects() {
     const projectsGrid = document.getElementById('projects-grid');
     if (!projectsGrid) return;
 
-    projectsGrid.innerHTML = projects.map(project => `
-    <div class="project-card reveal">
-        <img src="${project.image}" alt="${project.title}" class="project-image" loading="lazy">
+    projectsGrid.innerHTML = projects.map(project => {
+        if (project.type === 'view-all') {
+            return `
+            <div class="project-card reveal view-all-card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: var(--color-bg-tertiary); height: 100%;">
+                <div class="project-content">
+                    <h3 class="card-title" style="margin-bottom: var(--space-4);">Explore More</h3>
+                    <p class="card-description" style="margin-bottom: var(--space-6); -webkit-line-clamp: unset;">Check out all my open source contributions on GitHub.</p>
+                    <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        View All Repositories <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>`;
+        }
+
+        return `
+        <div class="project-card reveal">
             <div class="project-content">
-                <h3 class="card-title">${project.title}</h3>
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-2);">
+                    <h3 class="card-title" style="margin: 0; font-size: var(--text-lg);">${project.title}</h3>
+                    ${project.stars > 0 ? `<span class="tag" style="background: transparent; padding: 0;"><i class="fas fa-star" style="color: var(--color-warning);"></i> ${project.stars}</span>` : ''}
+                </div>
+                
                 <p class="card-description">${project.description}</p>
+                
                 <div class="project-tags">
                     ${project.tags.map(tag => `<span class="tag tag-primary">${tag}</span>`).join('')}
                 </div>
-                <div class="project-links" style="display: flex; gap: var(--space-4); margin-top: var(--space-4);">
+                
+                <div class="project-links" style="display: flex; gap: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--color-border); margin-top: auto;">
                     ${project.github ? `
-            <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+            <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding: var(--space-2) var(--space-4); font-size: var(--text-sm); flex: 1;">
               <i class="fab fa-github"></i> Code
             </a>
           ` : ''}
                     ${project.demo ? `
-            <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: var(--space-2) var(--space-4); font-size: var(--text-sm); flex: 1;">
               <i class="fas fa-external-link-alt"></i> Demo
             </a>
           ` : ''}
                 </div>
             </div>
-        </div>
-`).join('');
+        </div>`;
+    }).join('');
+
+    // Re-initialize reveal animations for new elements
+    setTimeout(() => {
+        setupRevealAnimations();
+    }, 0);
 }
 
 // Navbar scroll effect
@@ -244,7 +268,9 @@ function setupTypingEffect() {
 
 // Initialize all functionality
 function init() {
-    renderProjects();
+    // Initial render or fetch
+    fetchGitHubProjects();
+
     setupSmoothScroll();
     setupMobileMenu();
     setupContactForm();
