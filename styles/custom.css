@@ -46,6 +46,7 @@
     font-weight: var(--font-medium);
     margin-bottom: var(--space-4);
     opacity: 0.9;
+    color: var(--color-bg-tertiary);
 }
 
 .hero-title {
@@ -88,6 +89,7 @@
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+    color: var(--color-accent);
 }
 
 .hero-cta {
@@ -202,6 +204,10 @@
     border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
 }
 
+.section-subtitle {
+    color: var(--color-accent);
+}
+
 
 
 /* Contact Section */
@@ -295,6 +301,12 @@
 .footer-content p {
     margin: 0;
     color: var(--color-text-secondary);
+}
+
+.timeline-title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+    color: var(--color-primary);
 }
 
 .timeline-description {

@@ -113,7 +113,7 @@ function updateActiveNavLink() {
 
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current} `) {
+        if (link.getAttribute('href') === `#${current}`) {
             link.classList.add('active');
         }
     });
@@ -203,10 +203,11 @@ function setupTypingEffect() {
 
     const roles = [
         'Full Stack Developer',
-        '.NET Developer',
-        'Web Developer',
+        '.NET Backend Developer',
+        'Microservices Developer',
         'Software Engineer',
-        'Problem Solver'
+        'Budding AI Enthusiast',
+        'Loves new Technologies'
     ];
 
     let roleIndex = 0;
