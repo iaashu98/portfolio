@@ -297,6 +297,46 @@
     color: var(--color-text-secondary);
 }
 
+.timeline-description {
+    color: var(--color-text-secondary);
+}
+
+.timeline-description ul {
+    list-style: none;
+    margin-top: var(--space-4);
+}
+
+.timeline-description li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: var(--space-3);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+}
+
+.timeline-description li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.timeline-description h4 {
+    color: var(--color-text-primary);
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-3);
+    border-bottom: 2px solid var(--color-bg-tertiary);
+    padding-bottom: var(--space-1);
+    display: inline-block;
+}
+
+.timeline-description strong {
+    color: var(--color-primary);
+}
+
 .footer-content .fa-heart {
     color: var(--color-error);
     animation: pulse 1.5s ease-in-out infinite;
