@@ -158,6 +158,22 @@
     .mobile-menu-toggle {
         display: flex;
     }
+
+    .nav-link {
+        color: var(--color-text-primary);
+        /* Force dark text on mobile menu background */
+        padding: var(--space-3) 0;
+        /* Add vertical padding for better touch targets */
+    }
+
+    .nav-link:hover {
+        color: var(--color-primary);
+    }
+
+    .nav-link::after {
+        display: none;
+        /* Remove underline effect on mobile if desired, or adjust */
+    }
 }
 
 /* Buttons */
